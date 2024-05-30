@@ -1,19 +1,39 @@
-apiVersion : apps/v1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chandrikateamuser 
+  name: revhire-user
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chandrikateamuser
+      app: revhire-user
   template:
     metadata:
       labels:
-        app: chandrikateamuser 
+        app : revhire-user
     spec:
       containers:
-        - name: chandrikateamuser 
+        - name: revhire-user
           image: revhireacrchandu2001.azurecr.io/chandrikateamuser
-          ports:
-          - containerPort: 8082
+          env:
+          - name : DB_URL
+            valueFrom: 
+              secretKeyRef:
+                name: db-credentials
+                key: DB_URL
+          - name : DB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key : DB_USERNAME
+          - name : DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: DB_PASSWORD
+          - name: DB_PORT
+            valueFrom:
+              secretKeyRef:
+                name: db-credentials
+                key: DB_PORT

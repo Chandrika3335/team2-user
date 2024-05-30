@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: chandrikateamuser 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chandrikateamuser
+  template:
+    metadata:
+      labels:
+        app: chandrikateamuser 
+    spec:
+      containers:
+        - name: chandrikateamuser 
+          image: revhireacrchandu2001.azurecr.io/chandrikateamuser
+          ports:
+          - containerPort: 8082
